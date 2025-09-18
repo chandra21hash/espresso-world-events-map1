@@ -4,6 +4,7 @@ import MarkerClusterGroup from "react-leaflet-cluster";
 import type { LatLngExpression } from "leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import espressoLogo from "@/assets/espresso-logo.png";
 import { espressoEvents, type EspressoEvent } from "@shared/espresso-events";
 import MapToggle from "./MapToggle";
 import MapLegend from "./MapLegend";
@@ -72,12 +73,20 @@ function EventMarkers({ events, mode }: { events: EspressoEvent[], mode: "past" 
         <Marker
           key={`${event.event}-${idx}`}
           position={event.coords as LatLngExpression}
-          icon={L.divIcon({
-            html: `<div style="background:${mode === "past" ? DARK_ESPRESSO : "white"};border:2px solid ${mode === "past" ? "white" : DARK_ESPRESSO};border-radius:50%;width:${MARKER_RADIUS * 2}px;height:${MARKER_RADIUS * 2}px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 4px rgba(0,0,0,0.3);"></div>`,
-            className: "custom-marker",
-            iconSize: [MARKER_RADIUS * 2, MARKER_RADIUS * 2],
-            iconAnchor: [MARKER_RADIUS, MARKER_RADIUS]
-          })}
+          icon={mode === "upcoming" 
+            ? L.divIcon({
+                html: `<div style="width:${MARKER_RADIUS * 2}px;height:${MARKER_RADIUS * 2}px;display:flex;align-items:center;justify-content:center;"><img src="${espressoLogo}" style="width:${MARKER_RADIUS * 2}px;height:${MARKER_RADIUS * 2}px;border-radius:50%;border:2px solid ${DARK_ESPRESSO};box-shadow:0 2px 4px rgba(0,0,0,0.3);" /></div>`,
+                className: "custom-marker-logo",
+                iconSize: [MARKER_RADIUS * 2, MARKER_RADIUS * 2],
+                iconAnchor: [MARKER_RADIUS, MARKER_RADIUS]
+              })
+            : L.divIcon({
+                html: `<div style="background:${DARK_ESPRESSO};border:2px solid white;border-radius:50%;width:${MARKER_RADIUS * 2}px;height:${MARKER_RADIUS * 2}px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 4px rgba(0,0,0,0.3);"></div>`,
+                className: "custom-marker",
+                iconSize: [MARKER_RADIUS * 2, MARKER_RADIUS * 2],
+                iconAnchor: [MARKER_RADIUS, MARKER_RADIUS]
+              })
+          }
           eventHandlers={{
             click: (e) => {
               // Zoom to the specific event when clicked
