@@ -2,6 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Hide map grid lines (longitude/latitude) */
+.leaflet-container .leaflet-graticule,
+.leaflet-container .leaflet-grid,
+.leaflet-container .leaflet-coordinates,
+.leaflet-container .leaflet-control-coordinates,
+.leaflet-container .leaflet-control-graticule {
+  display: none !important;
+}
+
+/* Hide any SVG grid lines that might appear */
+.leaflet-container svg line[stroke="#ccc"],
+.leaflet-container svg line[stroke="#999"],
+.leaflet-container svg line[stroke="#666"],
+.leaflet-container svg line[stroke="gray"],
+.leaflet-container svg line[stroke="grey"] {
+  display: none !important;
+}
+
+/* Hide coordinate grid overlays */
+.leaflet-container .leaflet-overlay-pane svg g[id*="grid"],
+.leaflet-container .leaflet-overlay-pane svg g[id*="graticule"],
+.leaflet-container .leaflet-overlay-pane svg g[class*="grid"],
+.leaflet-container .leaflet-overlay-pane svg g[class*="graticule"] {
+  display: none !important;
+}
+
 /* LIGHT MODE */
 :root {
   --button-outline: rgba(0,0,0, .10);

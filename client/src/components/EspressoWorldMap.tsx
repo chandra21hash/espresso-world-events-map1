@@ -151,9 +151,12 @@ export default function EspressoWorldMap() {
         zoom={2} 
         style={{ height: "100%", width: "100%" }}
         className="rounded-lg"
+        attributionControl={false}
+        zoomControl={true}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution=""
         />
         
         <CountryHighlights mode={mode} />
