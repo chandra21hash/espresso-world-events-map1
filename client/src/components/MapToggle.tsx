@@ -11,7 +11,7 @@ interface MapToggleProps {
 
 export default function MapToggle({ mode, onModeChange }: MapToggleProps) {
   return (
-    <div className="absolute top-4 right-4 z-[1000] bg-card border border-card-border rounded-lg p-1 shadow-lg">
+    <div className="absolute bottom-4 left-4 z-[1000] bg-card border border-card-border rounded-lg p-1 shadow-lg">
       <div className="flex gap-1">
         <Button
           variant="ghost"
