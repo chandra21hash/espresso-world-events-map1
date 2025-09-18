@@ -1,4 +1,4 @@
-import espressoLogo from "@assets/espres_1758174301983.png";
+import espressoLogo from "@/assets/espresso-logo.png";
 
 export default function EspressoHeader() {
   return (
