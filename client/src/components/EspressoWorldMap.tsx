@@ -65,10 +65,6 @@ function createClusterCustomIcon(cluster: any, mode: "past" | "upcoming") {
 function EventMarkers({ events, mode }: { events: EspressoEvent[], mode: "past" | "upcoming" }) {
   const map = useMap();
 
-  // Add map to window for debugging
-  if (typeof window !== 'undefined') {
-    (window as any).debugMap = map;
-  }
   
   return (
     <>
@@ -84,7 +80,6 @@ function EventMarkers({ events, mode }: { events: EspressoEvent[], mode: "past" 
           })}
           eventHandlers={{
             click: (e) => {
-              console.log('Marker clicked:', event.event, 'at zoom:', map.getZoom());
               // Zoom to the specific event when clicked
               map.setView(event.coords as LatLngExpression, 8, {
                 animate: true,
@@ -92,7 +87,6 @@ function EventMarkers({ events, mode }: { events: EspressoEvent[], mode: "past" 
               });
               // Open popup
               try {
-                console.log('Opening popup for:', event.event);
                 e.target.openPopup();
               } catch (err) {
                 console.error('Error opening popup:', err);
