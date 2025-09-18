@@ -19,7 +19,11 @@ export default function MapLegend({ mode }: MapLegendProps) {
             <span className="text-xs text-muted-foreground">Upcoming Events</span>
           </div>
         </div>
-        <div className="pt-1 border-t border-border">
+        <div className="pt-1 border-t border-border space-y-1">
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-2 bg-primary opacity-40 rounded-sm"></div>
+            <span className="text-xs text-muted-foreground">Country Highlights</span>
+          </div>
           <p className="text-xs text-muted-foreground">
             Showing: <span className="font-medium text-foreground">{mode === "past" ? "Past" : "Upcoming"} Events</span>
           </p>

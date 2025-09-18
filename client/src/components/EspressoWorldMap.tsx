@@ -7,6 +7,7 @@ import "leaflet/dist/leaflet.css";
 import { espressoEvents, type EspressoEvent } from "@shared/espresso-events";
 import MapToggle from "./MapToggle";
 import MapLegend from "./MapLegend";
+import CountryHighlights from "./CountryHighlights";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Calendar, MapPin } from "lucide-react";
 
@@ -61,6 +62,7 @@ export default function EspressoWorldMap() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         
+        <CountryHighlights mode={mode} />
         <FitBoundsToEvents bounds={allBounds} />
         
         <MarkerClusterGroup 
