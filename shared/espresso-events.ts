@@ -76,13 +76,13 @@ export const espressoEvents = {
   ],
   upcomingEvents: [
     {
-      event: "Seoul Gathering",
+      event: "Brewing the Base Layer | Espresso Happy Hour",
       city: "Seoul",
       country: "Korea",
       coords: [37.5665, 126.9780] as [number, number],
-      date: "2025-11-10",
+      date: "2025-09-20",
       status: "Upcoming" as const,
-      link: "https://x.com/EspressoSys"
+      link: "https://luma.com/e0u6mnoc"
     },
     {
       event: "Buenos Aires Con",
