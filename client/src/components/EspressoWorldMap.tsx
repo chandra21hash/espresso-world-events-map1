@@ -171,10 +171,10 @@ export default function EspressoWorldMap() {
         
         <MarkerClusterGroup 
           iconCreateFunction={(cluster: any) => createClusterCustomIcon(cluster, mode)}
-          maxClusterRadius={50}
-          spiderfyOnMaxZoom={true}
+          maxClusterRadius={80}
+          spiderfyOnMaxZoom={false}
           showCoverageOnHover={false}
-          disableClusteringAtZoom={3}
+          disableClusteringAtZoom={4}
           zoomToBoundsOnClick={true}
         >
           <EventMarkers events={events} mode={mode} />
