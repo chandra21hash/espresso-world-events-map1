@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { MapContainer, TileLayer, CircleMarker, Popup, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, CircleMarker, Marker, Popup, useMap } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import type { LatLngExpression } from "leaflet";
 import L from "leaflet";
@@ -64,21 +64,24 @@ function createClusterCustomIcon(cluster: any, mode: "past" | "upcoming") {
 // Component to handle event clicks with map access
 function EventMarkers({ events, mode }: { events: EspressoEvent[], mode: "past" | "upcoming" }) {
   const map = useMap();
+
+  // Add map to window for debugging
+  if (typeof window !== 'undefined') {
+    (window as any).debugMap = map;
+  }
   
   return (
     <>
       {events.map((event: EspressoEvent, idx: number) => (
-        <CircleMarker
+        <Marker
           key={`${event.event}-${idx}`}
-          center={event.coords as LatLngExpression}
-          radius={MARKER_RADIUS}
-          pathOptions={{
-            fillColor: mode === "past" ? DARK_ESPRESSO : "white",
-            color: mode === "past" ? "white" : DARK_ESPRESSO,
-            weight: 2,
-            fillOpacity: 1,
-            opacity: 1
-          }}
+          position={event.coords as LatLngExpression}
+          icon={L.divIcon({
+            html: `<div style="background:${mode === "past" ? DARK_ESPRESSO : "white"};border:2px solid ${mode === "past" ? "white" : DARK_ESPRESSO};border-radius:50%;width:${MARKER_RADIUS * 2}px;height:${MARKER_RADIUS * 2}px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 4px rgba(0,0,0,0.3);"></div>`,
+            className: "custom-marker",
+            iconSize: [MARKER_RADIUS * 2, MARKER_RADIUS * 2],
+            iconAnchor: [MARKER_RADIUS, MARKER_RADIUS]
+          })}
           eventHandlers={{
             click: (e) => {
               console.log('Marker clicked:', event.event, 'at zoom:', map.getZoom());
@@ -136,7 +139,7 @@ function EventMarkers({ events, mode }: { events: EspressoEvent[], mode: "past" 
               </div>
             </div>
           </Popup>
-        </CircleMarker>
+        </Marker>
       ))}
     </>
   );
