@@ -81,17 +81,23 @@ function EventMarkers({ events, mode }: { events: EspressoEvent[], mode: "past" 
           }}
           eventHandlers={{
             click: (e) => {
+              console.log('Marker clicked:', event.event, 'at zoom:', map.getZoom());
               // Zoom to the specific event when clicked
               map.setView(event.coords as LatLngExpression, 8, {
                 animate: true,
                 duration: 0.6
               });
-              // Explicitly open the popup
-              e.target.openPopup();
+              // Open popup
+              try {
+                console.log('Opening popup for:', event.event);
+                e.target.openPopup();
+              } catch (err) {
+                console.error('Error opening popup:', err);
+              }
             }
           }}
         >
-          <Popup closeOnClick={false} autoClose={false}>
+            <Popup closeButton={true}>
             <div className="p-2 min-w-[200px]">
               <div className="space-y-2">
                 <h3 className="font-bold text-base text-foreground">
@@ -171,7 +177,8 @@ export default function EspressoWorldMap() {
           maxClusterRadius={50}
           spiderfyOnMaxZoom={true}
           showCoverageOnHover={false}
-          disableClusteringAtZoom={7}
+          disableClusteringAtZoom={3}
+          zoomToBoundsOnClick={true}
         >
           <EventMarkers events={events} mode={mode} />
         </MarkerClusterGroup>
