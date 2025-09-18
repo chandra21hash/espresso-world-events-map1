@@ -81,8 +81,8 @@ function EventMarkers({ events, mode }: { events: EspressoEvent[], mode: "past" 
                 iconAnchor: [MARKER_RADIUS, MARKER_RADIUS]
               })
             : L.divIcon({
-                html: `<div style="width:${MARKER_RADIUS * 2}px;height:${MARKER_RADIUS * 2}px;display:flex;align-items:center;justify-content:center;"><img src="${espressoLogo}" style="width:${MARKER_RADIUS * 2}px;height:${MARKER_RADIUS * 2}px;border-radius:50%;border:2px solid white;box-shadow:0 2px 4px rgba(0,0,0,0.3);filter:sepia(1) hue-rotate(15deg) saturate(1.5) brightness(0.6) contrast(1.2);" /></div>`,
-                className: "custom-marker-logo-dark",
+                html: `<div style="background:${DARK_ESPRESSO};border:2px solid white;border-radius:50%;width:${MARKER_RADIUS * 2}px;height:${MARKER_RADIUS * 2}px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 4px rgba(0,0,0,0.3);"></div>`,
+                className: "custom-marker",
                 iconSize: [MARKER_RADIUS * 2, MARKER_RADIUS * 2],
                 iconAnchor: [MARKER_RADIUS, MARKER_RADIUS]
               })
