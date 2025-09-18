@@ -30,25 +30,24 @@ export default function CountryHighlights({ mode }: CountryHighlightsProps) {
     const countryName = feature?.properties?.NAME || feature?.properties?.name || '';
     const eventType = getCountryEventType(countryName);
     
-    if (!eventType) {
+    // Only highlight countries that match the current mode
+    if (eventType === mode) {
       return {
-        fillColor: 'transparent',
-        weight: 0.5,
-        opacity: 0.2,
-        color: '#666',
-        fillOpacity: 0
+        fillColor: mode === "past" ? DARK_ESPRESSO : LIGHT_ESPRESSO,
+        weight: 1.5,
+        opacity: 0.8,
+        color: mode === "past" ? DARK_ESPRESSO : LIGHT_ESPRESSO,
+        fillOpacity: 0.4
       };
     }
-
-    // Show highlighting based on current mode
-    const shouldHighlight = eventType === mode;
     
+    // All other countries (including those with different event types) appear completely normal
     return {
-      fillColor: eventType === "past" ? DARK_ESPRESSO : LIGHT_ESPRESSO,
-      weight: 1,
-      opacity: shouldHighlight ? 0.8 : 0.3,
-      color: eventType === "past" ? DARK_ESPRESSO : LIGHT_ESPRESSO,
-      fillOpacity: shouldHighlight ? 0.4 : 0.15
+      fillColor: 'transparent',
+      weight: 0,
+      opacity: 0,
+      color: 'transparent',
+      fillOpacity: 0
     };
   };
 
@@ -56,10 +55,11 @@ export default function CountryHighlights({ mode }: CountryHighlightsProps) {
     const countryName = feature?.properties?.NAME || feature?.properties?.name || '';
     const eventType = getCountryEventType(countryName);
     
-    if (eventType) {
+    // Only show tooltips for countries that match the current mode
+    if (eventType === mode) {
       layer.bindTooltip(
         `<div class="font-medium">${countryName}</div>
-         <div class="text-sm text-muted-foreground">${eventType === "past" ? "Past Events" : "Upcoming Events"}</div>`,
+         <div class="text-sm text-muted-foreground">${mode === "past" ? "Past Events" : "Upcoming Events"}</div>`,
         {
           permanent: false,
           direction: 'top',
@@ -73,6 +73,7 @@ export default function CountryHighlights({ mode }: CountryHighlightsProps) {
 
   return (
     <GeoJSON
+      key={mode} // Force remount on mode change to rebind tooltips
       data={countriesData}
       style={getCountryStyle}
       onEachFeature={onEachFeature}

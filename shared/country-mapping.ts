@@ -16,13 +16,13 @@ export const countryEventMapping = {
 
 // Country name variations to handle different naming conventions
 export const countryNameVariations: Record<string, string[]> = {
-  "USA": ["United States", "United States of America", "US"],
-  "Korea": ["South Korea", "Republic of Korea"],
-  "Germany": ["Deutschland"],
-  "France": ["République française"],
-  "Thailand": ["Kingdom of Thailand"],
-  "Belgium": ["Kingdom of Belgium"],
-  "Argentina": ["Argentine Republic"]
+  "USA": ["United States", "United States of America", "US", "United States of America"],
+  "Korea": ["South Korea", "Republic of Korea", "Korea, Republic of"],
+  "Germany": ["Deutschland", "Federal Republic of Germany"],
+  "France": ["République française", "French Republic"],
+  "Thailand": ["Kingdom of Thailand", "Siam"],
+  "Belgium": ["Kingdom of Belgium", "België", "Belgique"],
+  "Argentina": ["Argentine Republic", "República Argentina"]
 };
 
 export function getCountryEventType(countryName: string): "past" | "upcoming" | null {
