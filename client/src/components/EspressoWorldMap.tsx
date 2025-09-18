@@ -196,12 +196,12 @@ export default function EspressoWorldMap() {
                 const markers = cluster.getAllChildMarkers();
                 console.log('Cluster markers count:', markers.length);
                 
-                if (markers.length > 1) {
-                  // For Seoul cluster specifically, we know both events are at same coordinates
+                // Only handle Seoul cluster with exactly 2 markers
+                if (markers.length === 2) {
                   const seoulEvents = events.filter(event => event.city === 'Seoul');
                   console.log('Seoul events found:', seoulEvents.length);
                   
-                  if (seoulEvents.length > 1) {
+                  if (seoulEvents.length === 2) {
                     console.log('Creating Seoul multi-event popup');
                     
                     // Create popup content for Seoul events
@@ -266,12 +266,14 @@ export default function EspressoWorldMap() {
                       }
                     }, 0);
                     
-                    return; // Prevent default zoom behavior
+                    e.stopPropagation();
+                    return; // Prevent default zoom behavior for Seoul only
                   }
                 }
               }
               
               console.log('Using default cluster behavior - zoom to bounds');
+              // Allow default zoom behavior for all other clusters
             }
           }}
         >
