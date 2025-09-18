@@ -28,6 +28,27 @@ function FitBoundsToEvents({ bounds }: { bounds: [number, number][] }) {
   return null;
 }
 
+function ZoomToModeEvents({ mode }: { mode: "past" | "upcoming" }) {
+  const map = useMap();
+  
+  useEffect(() => {
+    const events = mode === "past" ? espressoEvents.pastEvents : espressoEvents.upcomingEvents;
+    if (events.length > 0) {
+      const eventBounds = events.map(e => e.coords);
+      // Zoom to the events for the current mode with a slight delay for smooth transition
+      setTimeout(() => {
+        map.fitBounds(eventBounds, { 
+          padding: [50, 50], 
+          maxZoom: events.length === 1 ? 8 : 5,
+          duration: 0.8 
+        });
+      }, 100);
+    }
+  }, [mode, map]);
+  
+  return null;
+}
+
 function createClusterCustomIcon(cluster: any, mode: "past" | "upcoming") {
   const count = cluster.getChildCount();
   const color = mode === "past" ? DARK_ESPRESSO : LIGHT_ESPRESSO;
@@ -38,6 +59,79 @@ function createClusterCustomIcon(cluster: any, mode: "past" | "upcoming") {
     className: "custom-cluster",
     iconSize: [40, 40]
   });
+}
+
+// Component to handle event clicks with map access
+function EventMarkers({ events, mode }: { events: EspressoEvent[], mode: "past" | "upcoming" }) {
+  const map = useMap();
+  
+  return (
+    <>
+      {events.map((event: EspressoEvent, idx: number) => (
+        <CircleMarker
+          key={`${event.event}-${idx}`}
+          center={event.coords as LatLngExpression}
+          radius={MARKER_RADIUS}
+          pathOptions={{
+            fillColor: mode === "past" ? DARK_ESPRESSO : "white",
+            color: mode === "past" ? "white" : DARK_ESPRESSO,
+            weight: 2,
+            fillOpacity: 1,
+            opacity: 1
+          }}
+          eventHandlers={{
+            click: () => {
+              // Zoom to the specific event when clicked
+              map.setView(event.coords as LatLngExpression, 8, {
+                animate: true,
+                duration: 0.6
+              });
+            }
+          }}
+        >
+          <Popup>
+            <div className="p-2 min-w-[200px]">
+              <div className="space-y-2">
+                <h3 className="font-bold text-base text-foreground">
+                  {event.event}
+                </h3>
+                
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <MapPin className="w-4 h-4" />
+                  <span>{event.city}, {event.country}</span>
+                </div>
+                
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Calendar className="w-4 h-4" />
+                  <span>{new Date(event.date).toLocaleDateString()}</span>
+                </div>
+                
+                <div className="pt-2">
+                  <Button 
+                    size="sm" 
+                    variant="default"
+                    className="w-full"
+                    asChild
+                    data-testid={`button-event-link-${idx}`}
+                  >
+                    <a 
+                      href={event.link} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2"
+                    >
+                      <ExternalLink className="w-3 h-3" />
+                      View Event
+                    </a>
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </Popup>
+        </CircleMarker>
+      ))}
+    </>
+  );
 }
 
 export default function EspressoWorldMap() {
@@ -64,67 +158,15 @@ export default function EspressoWorldMap() {
         
         <CountryHighlights mode={mode} />
         <FitBoundsToEvents bounds={allBounds} />
+        <ZoomToModeEvents mode={mode} />
         
         <MarkerClusterGroup 
-          iconCreateFunction={(cluster) => createClusterCustomIcon(cluster, mode)}
+          iconCreateFunction={(cluster: any) => createClusterCustomIcon(cluster, mode)}
           maxClusterRadius={50}
           spiderfyOnMaxZoom={true}
           showCoverageOnHover={false}
         >
-          {events.map((event: EspressoEvent, idx: number) => (
-            <CircleMarker
-              key={`${event.event}-${idx}`}
-              center={event.coords as LatLngExpression}
-              radius={MARKER_RADIUS}
-              pathOptions={{
-                fillColor: mode === "past" ? DARK_ESPRESSO : "white",
-                color: mode === "past" ? "white" : DARK_ESPRESSO,
-                weight: 2,
-                fillOpacity: 1,
-                opacity: 1
-              }}
-            >
-              <Popup>
-                <div className="p-2 min-w-[200px]">
-                  <div className="space-y-2">
-                    <h3 className="font-bold text-base text-foreground">
-                      {event.event}
-                    </h3>
-                    
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <MapPin className="w-4 h-4" />
-                      <span>{event.city}, {event.country}</span>
-                    </div>
-                    
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Calendar className="w-4 h-4" />
-                      <span>{new Date(event.date).toLocaleDateString()}</span>
-                    </div>
-                    
-                    <div className="pt-2">
-                      <Button 
-                        size="sm" 
-                        variant="default"
-                        className="w-full"
-                        asChild
-                        data-testid={`button-event-link-${idx}`}
-                      >
-                        <a 
-                          href={event.link} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2"
-                        >
-                          <ExternalLink className="w-3 h-3" />
-                          View Event
-                        </a>
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </Popup>
-            </CircleMarker>
-          ))}
+          <EventMarkers events={events} mode={mode} />
         </MarkerClusterGroup>
       </MapContainer>
       
