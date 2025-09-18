@@ -34,19 +34,19 @@ export default function CountryHighlights({ mode }: CountryHighlightsProps) {
     if (eventType === mode) {
       return {
         fillColor: mode === "past" ? DARK_ESPRESSO : LIGHT_ESPRESSO,
-        weight: 1.5,
-        opacity: 0.8,
+        weight: 2,
+        opacity: 1,
         color: mode === "past" ? DARK_ESPRESSO : LIGHT_ESPRESSO,
-        fillOpacity: 0.4
+        fillOpacity: 0.15 // Much more subtle fill
       };
     }
     
     // All other countries (including those with different event types) appear completely normal
     return {
       fillColor: 'transparent',
-      weight: 0,
-      opacity: 0,
-      color: 'transparent',
+      weight: 0.5,
+      opacity: 0.2,
+      color: '#ccc',
       fillOpacity: 0
     };
   };
