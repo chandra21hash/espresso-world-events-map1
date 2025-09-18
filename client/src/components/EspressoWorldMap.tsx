@@ -11,9 +11,9 @@ import CountryHighlights from "./CountryHighlights";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Calendar, MapPin } from "lucide-react";
 
-// Color constants matching design guidelines
-const DARK_ESPRESSO = "hsl(25, 65%, 25%)";
-const LIGHT_ESPRESSO = "hsl(35, 45%, 55%)";
+// Color constants from espresso logo
+const DARK_ESPRESSO = "#b36d3c";
+const LIGHT_ESPRESSO = "#f2b98f";
 const MARKER_RADIUS = 8;
 
 function FitBoundsToEvents({ bounds }: { bounds: [number, number][] }) {

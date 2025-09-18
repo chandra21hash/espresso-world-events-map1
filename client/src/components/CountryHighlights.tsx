@@ -7,8 +7,8 @@ interface CountryHighlightsProps {
   mode: "past" | "upcoming";
 }
 
-const DARK_ESPRESSO = "hsl(25, 65%, 25%)";
-const LIGHT_ESPRESSO = "hsl(35, 45%, 55%)";
+const DARK_ESPRESSO = "#b36d3c";
+const LIGHT_ESPRESSO = "#f2b98f";
 
 export default function CountryHighlights({ mode }: CountryHighlightsProps) {
   const [countriesData, setCountriesData] = useState<FeatureCollection | null>(null);
