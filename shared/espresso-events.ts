@@ -17,7 +17,7 @@ export const espressoEvents = {
       coords: [39.7392, -104.9903] as [number, number],
       date: "2023-06-20",
       status: "Past" as const,
-      link: "https://x.com/EspressoSys"
+      link: "https://luma.com/o2446knk"
     },
     {
       event: "SF Summit",
@@ -26,7 +26,7 @@ export const espressoEvents = {
       coords: [37.7749, -122.4194] as [number, number],
       date: "2023-09-12",
       status: "Past" as const,
-      link: "https://x.com/EspressoSys"
+      link: "https://luma.com/ethereum-10y-sanfrancisco"
     },
     {
       event: "NY Conference",
@@ -35,7 +35,7 @@ export const espressoEvents = {
       coords: [40.7128, -74.0060] as [number, number],
       date: "2024-02-15",
       status: "Past" as const,
-      link: "https://x.com/EspressoSys"
+      link: "https://luma.com/yb17pn9g"
     },
     {
       event: "Cannes Forum",
@@ -44,7 +44,7 @@ export const espressoEvents = {
       coords: [43.5528, 7.0174] as [number, number],
       date: "2023-05-10",
       status: "Past" as const,
-      link: "https://x.com/EspressoSys"
+      link: "https://luma.com/h0lmohx9"
     },
     {
       event: "Bangkok Talk",
@@ -53,7 +53,7 @@ export const espressoEvents = {
       coords: [13.7563, 100.5018] as [number, number],
       date: "2024-04-18",
       status: "Past" as const,
-      link: "https://x.com/EspressoSys"
+      link: "https://luma.com/sequencing_day"
     },
     {
       event: "Brussels Meetup",
@@ -62,7 +62,7 @@ export const espressoEvents = {
       coords: [50.8503, 4.3517] as [number, number],
       date: "2024-03-02",
       status: "Past" as const,
-      link: "https://x.com/EspressoSys"
+      link: "https://luma.com/ud8p6oww"
     },
     {
       event: "Berlin Workshop",
@@ -71,7 +71,7 @@ export const espressoEvents = {
       coords: [52.5200, 13.4050] as [number, number],
       date: "2024-07-23",
       status: "Past" as const,
-      link: "https://x.com/EspressoSys"
+      link: "https://luma.com/u407uyxp"
     }
   ],
   upcomingEvents: [
