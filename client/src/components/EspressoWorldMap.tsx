@@ -80,16 +80,18 @@ function EventMarkers({ events, mode }: { events: EspressoEvent[], mode: "past" 
             opacity: 1
           }}
           eventHandlers={{
-            click: () => {
+            click: (e) => {
               // Zoom to the specific event when clicked
               map.setView(event.coords as LatLngExpression, 8, {
                 animate: true,
                 duration: 0.6
               });
+              // Explicitly open the popup
+              e.target.openPopup();
             }
           }}
         >
-          <Popup>
+          <Popup closeOnClick={false} autoClose={false}>
             <div className="p-2 min-w-[200px]">
               <div className="space-y-2">
                 <h3 className="font-bold text-base text-foreground">
@@ -155,8 +157,9 @@ export default function EspressoWorldMap() {
         zoomControl={true}
       >
         <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
           attribution=""
+          subdomains="abcd"
         />
         
         <CountryHighlights mode={mode} />
@@ -168,6 +171,7 @@ export default function EspressoWorldMap() {
           maxClusterRadius={50}
           spiderfyOnMaxZoom={true}
           showCoverageOnHover={false}
+          disableClusteringAtZoom={7}
         >
           <EventMarkers events={events} mode={mode} />
         </MarkerClusterGroup>

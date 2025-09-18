@@ -2,29 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Hide map grid lines (longitude/latitude) */
+/* Hide coordinate grid overlays but preserve map functionality */
 .leaflet-container .leaflet-graticule,
 .leaflet-container .leaflet-grid,
 .leaflet-container .leaflet-coordinates,
 .leaflet-container .leaflet-control-coordinates,
-.leaflet-container .leaflet-control-graticule {
+.leaflet-container .leaflet-control-graticule,
+.leaflet-container .leaflet-latlng-graticule,
+.leaflet-container .leaflet-simple-graticule {
   display: none !important;
 }
 
-/* Hide any SVG grid lines that might appear */
-.leaflet-container svg line[stroke="#ccc"],
-.leaflet-container svg line[stroke="#999"],
-.leaflet-container svg line[stroke="#666"],
-.leaflet-container svg line[stroke="gray"],
-.leaflet-container svg line[stroke="grey"] {
+/* Hide specific grid-related SVG elements but not all SVG */
+.leaflet-container svg g[id*="grid"],
+.leaflet-container svg g[id*="graticule"],
+.leaflet-container svg g[class*="grid"],
+.leaflet-container svg g[class*="graticule"] {
   display: none !important;
 }
 
-/* Hide coordinate grid overlays */
-.leaflet-container .leaflet-overlay-pane svg g[id*="grid"],
-.leaflet-container .leaflet-overlay-pane svg g[id*="graticule"],
-.leaflet-container .leaflet-overlay-pane svg g[class*="grid"],
-.leaflet-container .leaflet-overlay-pane svg g[class*="graticule"] {
+/* Hide tile borders that might create grid appearance */
+.leaflet-container .leaflet-tile-pane .leaflet-tile {
+  border: none !important;
+  outline: none !important;
+}
+
+/* Hide attribution */
+.leaflet-container .leaflet-control-attribution {
   display: none !important;
 }
 
