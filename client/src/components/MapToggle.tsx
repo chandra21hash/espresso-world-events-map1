@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import espressoLogo from "@/assets/espresso-logo.png";
 
 // Color constants matching the map boundaries
 const DARK_ESPRESSO = "#b36d3c";
@@ -17,7 +18,7 @@ export default function MapToggle({ mode, onModeChange }: MapToggleProps) {
           variant="ghost"
           size="sm"
           onClick={() => onModeChange("past")}
-          className="text-sm font-medium transition-all duration-300"
+          className="text-sm font-medium transition-all duration-300 flex items-center gap-1.5"
           style={{
             backgroundColor: mode === "past" ? DARK_ESPRESSO : "transparent",
             color: mode === "past" ? "white" : "inherit",
@@ -25,6 +26,19 @@ export default function MapToggle({ mode, onModeChange }: MapToggleProps) {
           }}
           data-testid="button-toggle-past"
         >
+          <div 
+            className="w-4 h-4 rounded-full overflow-hidden border border-white/30"
+            style={{ 
+              backgroundColor: mode === "past" ? 'rgba(255,255,255,0.1)' : 'transparent',
+              filter: mode === "past" ? 'sepia(1) hue-rotate(15deg) saturate(1.5) brightness(0.6)' : 'none'
+            }}
+          >
+            <img 
+              src={espressoLogo} 
+              alt="Espresso Logo" 
+              className="w-full h-full object-cover"
+            />
+          </div>
           Past Events
         </Button>
         <Button
