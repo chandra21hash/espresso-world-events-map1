@@ -3,6 +3,7 @@ export const countryEventMapping = {
   // Countries with past events
   "USA": "past",
   "United States": "past", 
+  "United States of America": "past",
   "France": "past",
   "Thailand": "past",
   "Belgium": "past",
